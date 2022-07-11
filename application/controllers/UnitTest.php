@@ -47,11 +47,13 @@ class UnitTest extends CI_Controller {
     }
 
     public function registationTest()
-    {
 
+    {
+		$num = rand();
+        $email = 'test'.$num.'@test.com';
         $curl = curl_init("http://localhost/login/sign_up");
-        $data = array('email' => "test@test.com",'password' => "test",'passwordConfirm' => "testing" );
-     
+        $data = array('email' => $email,'password' => "test",'passwordConfirm' => "testing" );
+
         curl_setopt($curl, CURLOPT_POST, true);
         curl_setopt($curl, CURLOPT_POSTFIELDS, http_build_query($data));
         curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
@@ -61,7 +63,7 @@ class UnitTest extends CI_Controller {
         $this->unit->run(true, strpos($response, 'Both Password and Password Confirm should match'),"wrong password match");
 
         $curl = curl_init("http://localhost/login/sign_up");
-        $data = array('email' => "test@testing45.com",'password' => "testing",'passwordConfirm' => "testing" );
+        $data = array('email' => $email,'password' => "testing",'passwordConfirm' => "testing" );
      
         curl_setopt($curl, CURLOPT_POST, true);
         curl_setopt($curl, CURLOPT_POSTFIELDS, http_build_query($data));
