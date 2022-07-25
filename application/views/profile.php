@@ -44,26 +44,26 @@ echo $this->session->flashdata('profileupdate');
         <div class="p-2 w-full">
           <div class="relative">
             <label for="name"  class="leading-7 text-sm text-gray-600" >Full Name</label>
-            <input <?php if($data) {echo 'value="'.$data->name.'"';} ?> type="text" maxlength="50" id="name" name="name" class="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out" required>
+            <input <?php if (property_exists($data, 'name'))  {echo 'value="'.$data->name.'"';} ?> type="text" maxlength="50" id="name" name="name" class="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out" required>
           </div>
         </div>
         <div class="p-2 w-full">
           <div class="relative">
             <label for="addressone" class="leading-7 text-sm text-gray-600" >Address 1</label>
-            <input id="addressone" <?php  if($data) {echo 'value="'.$data->address.'"';} ?> type="text"  maxlength="100" name="addressone" class="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 h-10 text-base outline-none text-gray-700 py-1 px-3 resize-none leading-6 transition-colors duration-200 ease-in-out" required></input>
+            <input id="addressone" <?php  if(property_exists($data, 'address')) {echo 'value="'.$data->address.'"';} ?> type="text"  maxlength="100" name="addressone" class="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 h-10 text-base outline-none text-gray-700 py-1 px-3 resize-none leading-6 transition-colors duration-200 ease-in-out" required></input>
           </div>
         </div>
           <div class="p-2 w-full">
           <div class="relative">
             <label for="addresstwo" class="leading-7 text-sm text-gray-600">Address 2</label>
-            <input id="addresstwo" <?php  if($data) { echo 'value="'.$data->address2.'"';} ?> type="text"  maxlength="100" name="addresstwo" class="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 h-10 text-base outline-none text-gray-700 py-1 px-3 resize-none leading-6 transition-colors duration-200 ease-in-out"></input>
+            <input id="addresstwo" <?php  if(property_exists($data, 'address2')) { echo 'value="'.$data->address2.'"';} ?> type="text"  maxlength="100" name="addresstwo" class="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 h-10 text-base outline-none text-gray-700 py-1 px-3 resize-none leading-6 transition-colors duration-200 ease-in-out"></input>
           </div>
         </div>
       <div class="flex flex-wrap -m-2">
         <div class="p-2 w-1/3">
           <div class="relative">
             <label for="city" class="leading-7 text-sm text-gray-600">City</label>
-            <input type="text" <?php  if($data) { echo 'value="'.$data->city.'"';} ?> maxlength="100" id="city" name="city" class="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out"  required >
+            <input type="text" <?php  if(property_exists($data, 'city')) { echo 'value="'.$data->city.'"';} ?> maxlength="100" id="city" name="city" class="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out"  maxlength="50">
           </div>
         </div>
         <div class="p-2 w-1/3">
@@ -72,7 +72,8 @@ echo $this->session->flashdata('profileupdate');
             <select name="state" id="state" size="1" class="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700  py-2 px-3 leading-8 transition-colors duration-200 ease-in-out" required>
             <option value="">Please select</option>
             <?php 
-
+            
+            
               foreach($states as $x=>$x_value)
               {
              
@@ -84,6 +85,8 @@ echo $this->session->flashdata('profileupdate');
               }
 
               }
+            
+            
             ?>
        
             </select>
@@ -92,7 +95,7 @@ echo $this->session->flashdata('profileupdate');
         <div class="p-2 w-1/3">
           <div class="relative">
             <label for="zip" class="leading-7 text-sm text-gray-600">Zip Code</label>
-            <input <?php  if($data) { echo 'value="'.$data->zip.'"'; }?> type="text" maxlength="9" minlength="5" id="zip" name="zip" class="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
+            <input <?php  if(property_exists($data, 'zip')) { echo 'value="'.$data->zip.'"'; }?> type="text" maxlength="9" minlength="5" id="zip" name="zip" class="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
           </div>
         </div>
         </div>
