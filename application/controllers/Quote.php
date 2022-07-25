@@ -7,7 +7,8 @@ class Quote extends CI_Controller {
 	public function profile()
 	{
 		$this->load->model('profile_model');
-		$data="";
+		$data = (object) array('state' => "noting");
+		
 
 		if($this->session->userdata('email')) {
 
@@ -19,23 +20,35 @@ class Quote extends CI_Controller {
 				$city = $this->input->post('city');
 				$state = $this->input->post('state');
 				$zip = $this->input->post('zip');
-				
+
+				//validations
+				if(strlen($name)>50 || strlen($addressone)>100 || strlen($city)>100 || strlen($addresstwo)>100  || strlen($zip)>9 || strlen($zip)<5) {
+
+					$this->session->set_flashdata('profileupdate','<div class="bg-orange-100 border-l-4 border-orange-500 text-orange-700 p-4" role="alert">
+				<p class="font-bold">Unable to update Profile/ Enter Correct values</p>
+			  </div>');
+				}
+				else {
+					
 				if($this->profile_model-> complete_profile($name, $addressone, $addresstwo, $city, $state, $zip))
 				{
 					$this->session->set_flashdata('profileupdate','<div class="bg-green-100 border-l-4 border-green-500 text-green-700 p-4" role="alert">
 				<p class="font-bold">Profile Updated</p>
 			  </div>');
+
 				}
 				else {
 					$this->session->set_flashdata('profileupdate','<div class="bg-orange-100 border-l-4 border-orange-500 text-orange-700 p-4" role="alert">
 				<p class="font-bold">Unable to update Profile</p>
 			  </div>');
 				}
+				}
 			}
 			if($this->profile_model->is_profile_completed())
 			{
 				$data = $this->profile_model->get_profile();
 			}
+			
 
 			$result= $this->profile_model->get_States();
 
@@ -46,6 +59,7 @@ class Quote extends CI_Controller {
 		}
 	}
 
+	
 	public function view_quote()
 	{
 
@@ -68,6 +82,9 @@ class Quote extends CI_Controller {
 			$gallons = $this->input->post('gallons');
 			$date = $this->input->post('date');
 
+			//validations
+			if(is_numeric($gallons) && strtotime($date)) {
+				
 			$margin = $this->calculate_margin($current_market_price,$gallons,$date,$user->state);
 
 			$suggested_price = $current_market_price + $margin;
@@ -76,6 +93,16 @@ class Quote extends CI_Controller {
 			$data = array('due' =>$amount,'price'=>$suggested_price, 'date' =>$date,'address' =>$user->address,'gallons'=>$gallons);
 			
 			$this->load->view('quote',['data'=>$data]);
+
+			}else {
+				$this->session->set_flashdata('quote','<div class="bg-orange-100 border-l-4 border-orange-500 text-orange-700 p-4" role="alert">
+				<p class="font-bold">Enter Corrrect inputs</p>
+			  </div>');
+				$this->load->view('quote',['data'=>""]);
+			}
+
+
+
 		}
 		else if($this->input->post('save'))
 		{
@@ -83,8 +110,9 @@ class Quote extends CI_Controller {
 			$current_market_price = 1.2;
 			$gallons = $this->input->post('gallons');
 			$date = $this->input->post('date');
-
-			$margin = $this->calculate_margin($current_market_price,$gallons,$date,$user->state);
+			//validations
+			if(is_numeric($gallons) && strtotime($date)) {
+				$margin = $this->calculate_margin($current_market_price,$gallons,$date,$user->state);
 
 			$suggested_price = $current_market_price + $margin;
 			$amount = $suggested_price * $gallons;
@@ -104,6 +132,12 @@ class Quote extends CI_Controller {
 
 			$data = array('due' =>$amount,'price'=>$suggested_price, 'date' =>$date,'address' =>$user->address,'gallons'=>$gallons);
 			$this->load->view('quote',['data'=>$data]);
+			}
+			else {
+				$this->load->view('quote',['data'=>""]);
+			}
+
+			
 		}
 		else {
 			$this->load->view('quote',['data'=>""]);
@@ -128,6 +162,40 @@ class Quote extends CI_Controller {
 		$this->load->view('quote_history',['data'=>$data]);
 	}
 
+	public function show_profile()
+	{
+		if($this->session->flashdata('here') || true)
+		{
+			$this->session->set_flashdata('profileupdate','<div class="bg-orange-100 border-l-4 border-orange-500 text-orange-700 p-4" role="alert">
+				<p class="font-bold">Please Complete Profile</p>
+			  </div>');
+		}
+
+		$this->load->view('show_profile',['data'=>""]);
+	}
+
+	public function return_profile()
+	{
+			
+			$current_market_price = 1.2;
+			$gallons = $this->input->post('gallons');
+			$date = $this->input->post('date');
+
+		if(is_numeric($current_market_price) )
+		{
+			$name = $this->session->flashdata('name');
+			$this->session->set_flashdata('profileupdate','<div class="bg-orange-100 border-l-4 border-orange-500 text-orange-700 p-4" role="alert">
+				<p class="font-bold">Please Complete Profile</p>
+			  </div>');
+		}
+
+		$this->load->view('show_profile',['data'=>""]);
+	}
+
+
+	/**
+ * @codeCoverageIgnore
+ */
 	public function calculate_margin($current_market_price,$gallons,$date,$state) {
 
 		$company_profit_factor = 0.1;
