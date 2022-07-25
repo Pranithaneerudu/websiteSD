@@ -37,9 +37,6 @@ class Login extends CI_Controller {
 				redirect(base_url().'quote/profile');
 			} 
 			}
-			
-			
-		
 		}
 		$this->load->view('login');
 	}
@@ -52,7 +49,7 @@ class Login extends CI_Controller {
 			$password = $this->input->post('password');
 			$passwordConfirm = $this->input->post('passwordConfirm');
 
-			if($password !== $passwordConfirm)
+			if($password !== $passwordConfirm || !filter_var($email, FILTER_VALIDATE_EMAIL))
 			{
 				$this->session->set_flashdata('unabletosignup','<div class="bg-orange-100 border-l-4 border-orange-500 text-orange-700 p-4" role="alert">
 				<p class="font-bold">Both Password and Password Confirm should match</p>
@@ -80,6 +77,5 @@ class Login extends CI_Controller {
 	{
 		$this->session->unset_userdata('email');
 		redirect(base_url().'login/sign_in');
-
 	}
 }
