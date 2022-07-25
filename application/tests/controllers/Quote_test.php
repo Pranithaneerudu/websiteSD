@@ -81,6 +81,62 @@ class Quote_test extends TestCase
 
         $this->assertNotNull($output);
 
-        }
+        $output = $this->request(
+            'GET', 
+            'quote/view_quote'
+        );
+       
+		$this->assertNotNull($output);
+        // for get Quote
+        //incorrect date input
+        $output = $this->request(
+            'POST', 
+            'quote/view_quote',
+            ['gallons' => 20,'date' => '25/07/2022','quote' => 'testing']
+        );
+
+        $this->assertNotNull($output);
+        //correctdate
+        $output = $this->request(
+            'POST', 
+            'quote/view_quote',
+            ['gallons' => 20,'date' => '07-07-2022','quote' => 'testing']
+        );
+
+        $this->assertNotNull($output);
+
+
+        // for get save Quote
+        //incorrect date input
+        $output = $this->request(
+            'POST', 
+            'quote/view_quote',
+            ['gallons' => 20,'date' => '25/07/2022','save' => 'testing']
+        );
+
+        $this->assertNotNull($output);
+        //correctdate
+        $output = $this->request(
+            'POST', 
+            'quote/view_quote',
+            ['gallons' => 20,'date' => '07-07-2022','save' => 'testing']
+        );
+
+        $this->assertNotNull($output);
+
+        // for quote history
+
+        $output = $this->request(
+            'GET', 
+            'quote/quote_history'
+        );
+
+        $this->assertNotNull($output);
+
+
+
+      
+    }
+  
 
 }
