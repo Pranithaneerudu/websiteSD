@@ -6,7 +6,11 @@
   <script src="https://cdn.tailwindcss.com"></script>
   <title>Fuel Quote generator</title>
   <link rel="shortcut icon" href="https://png.pngtree.com/png-vector/20190302/ourmid/pngtree-vector-fuel-station-icon-png-image_745318.jpg"/>
-
+<style>
+  input:disabled{
+    background-color:grey;
+  }
+</style>
 </head>
 <body>
   <header class="text-gray-600 bg-blue-100 body-font">
@@ -45,7 +49,7 @@ echo $this->session->flashdata('quote');
         <div class="p-2 w-full">
           <div class="relative">
             <label for="gallons" class="leading-7 text-sm text-gray-600">Gallons Requested</label>
-            <input type="number" <?php if($data){ echo 'value="'.$data['gallons'].'"';} ?> id="gallons" name="gallons" class="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out" required>
+            <input  type="number" onChange="quoteChanged()" <?php if($data){ echo 'value="'.$data['gallons'].'"';} ?> id="gallons" name="gallons" class="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out" required>
           </div>
         </div>
           
@@ -60,7 +64,7 @@ echo $this->session->flashdata('quote');
         <div class="p-2 w-1/3">
           <div class="relative">
             <label for="date" class="leading-7 text-sm text-gray-600">Delivery date</label>
-            <input type="date" id="date" <?php if($data){ echo 'value="'.$data['date'].'"';} ?> name="date" class="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out" required>
+            <input type="date" onChange="quoteChanged()"  id="date" <?php if($data){ echo 'value="'.$data['date'].'"';} ?> name="date" class="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out" required>
           </div>
         </div>
         </div>
@@ -81,10 +85,10 @@ echo $this->session->flashdata('quote');
       </div>
       <div class="flex flex-wrap -m-2">
         <div class="p-10 w-1/2">
-          <input type="submit" name="quote" value="Get Quote" class="flex mx-auto text-white bg-indigo-500 border-0 py-2 px-8 focus:outline-none hover:bg-indigo-600 rounded text-lg"/>
+          <input id="quotebutton" disabled="true" type="submit" name="quote" value="Get Quote" class="flex mx-auto text-white bg-indigo-500 border-0 py-2 px-8 focus:outline-none hover:bg-indigo-600 rounded text-lg"/>
         </div>
         <div class="p-10 w-1/2">
-        <input type="submit" name="save" value="Save Quote" class="flex mx-auto text-white bg-emerald-500 border-0 py-2 px-8 focus:outline-none hover:bg-indigo-600 rounded text-lg"/>
+        <input id="quotesavebutton" disabled="true" type="submit" name="save" value="Submit Quote" class="flex mx-auto text-white bg-emerald-500 border-0 py-2 px-8 focus:outline-none hover:bg-indigo-600 rounded text-lg"/>
         </div>
       </div>
        
@@ -94,4 +98,23 @@ echo $this->session->flashdata('quote');
 </form>
 </section>
 </body>
+
+<script>
+  function quoteChanged(){
+    if(document.getElementById("gallons").value  && document.getElementById("date").value)
+    {
+      document.getElementById("quotebutton").disabled=false;
+    }
+  }
+  if(document.getElementById("price").value)
+  {
+    document.getElementById("quotesavebutton").disabled=false;
+  }
+  if(document.getElementById("gallons").value  && document.getElementById("date").value)
+    {
+      document.getElementById("quotebutton").disabled=false;
+    }
+
+</script>
 </html>
+
