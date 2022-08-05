@@ -78,7 +78,7 @@ class Quote extends CI_Controller {
 		{
 			
 			$user  = $this->profile_model->get_profile();
-			$current_market_price = 1.2;
+			$current_market_price = 1.5;
 			$gallons = $this->input->post('gallons');
 			$date = $this->input->post('date');
 
@@ -107,7 +107,7 @@ class Quote extends CI_Controller {
 		else if($this->input->post('save'))
 		{
 			$user  = $this->profile_model->get_profile();
-			$current_market_price = 1.2;
+			$current_market_price = 1.5;
 			$gallons = $this->input->post('gallons');
 			$date = $this->input->post('date');
 			//validations
@@ -177,7 +177,7 @@ class Quote extends CI_Controller {
 	public function return_profile()
 	{
 			
-			$current_market_price = 1.2;
+			$current_market_price = 1.5;
 			$gallons = $this->input->post('gallons');
 			$date = $this->input->post('date');
 
@@ -207,6 +207,6 @@ class Quote extends CI_Controller {
 		$date = date("m", $timestamp);
 		$dateFluctuationFactor = $date > 5 && $date < 9 ? 0.04 :0.03 ;
 
-		return $current_market_price * ($location_factor - $rate_history_factor + $gallonsFactor +$dateFluctuationFactor + $company_profit_factor);;
+		return $current_market_price * ($location_factor - $rate_history_factor + $gallonsFactor + $company_profit_factor);;
 	}
 }
