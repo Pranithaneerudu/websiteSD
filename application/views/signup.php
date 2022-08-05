@@ -16,7 +16,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
   <header class="text-gray-600 bg-blue-100 body-font">
   <div class="container mx-auto flex flex-wrap p-5 flex-col md:flex-row items-center">
     <a href="<?php echo base_url();?>" class="flex title-font font-medium items-center text-gray-900 mb-4 md:mb-0">
-    
+
        <img src="https://png.pngtree.com/png-vector/20190302/ourmid/pngtree-vector-fuel-station-icon-png-image_745318.jpg" class="w-10 h-10 text-white rounded-full">
       <span class="ml-3 text-xl">Fuel Quote Generation</span>
     </a>
@@ -49,14 +49,14 @@ echo $this->session->flashdata('unabletosignup');
       </div>
       <div class="relative mb-4">
         <label for="password" class="leading-7 text-sm text-gray-600">Password</label>
-        <input type="password" id="password" name="password" class="w-full bg-white rounded border border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
+        <input type="password" minlength="6" id="password" name="password" class="w-full bg-white rounded border border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
       </div>
       <div class="relative mb-4">
         <label for="passwordConfirm" class="leading-7 text-sm text-gray-600">Confirm Password</label>
-        <input type="password" id="passwordConfirm" name="passwordConfirm" class="w-full bg-white rounded border border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
+        <input type="password" minlength="6" id="passwordConfirm" name="passwordConfirm" class="w-full bg-white rounded border border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
       </div>
       <button class="text-white bg-indigo-500 border-0 py-2 px-8 focus:outline-none hover:bg-indigo-600 rounded text-lg">Create Account</button>
-      <p class="text-xs text-gray-500 mt-3">Already have account?</p> <a href="<?php echo base_url();?>login/sign_in">Login here</a> 
+      <p class="text-xs text-gray-500 mt-3">Already have account?</p> <a href="<?php echo base_url();?>login/sign_in">Login here</a>
     </div>
   </div>
   </form>
