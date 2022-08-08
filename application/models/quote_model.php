@@ -9,9 +9,9 @@ class quote_model extends CI_Model {
         $res = $this->db->query($query);
         if ( $res->num_rows() == 0)
         {
-            return 0.01;
+            return 0;
         }
-        return 0;
+        return 0.01;
     }
 
     public function save_quote($data)
